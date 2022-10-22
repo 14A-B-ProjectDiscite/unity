@@ -401,7 +401,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 11.725826, y: -0.057573557}
+  m_Offset: {x: 12.720881, y: -0.05757332}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -412,7 +412,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.040439606, y: 10.019865}
+  m_Size: {x: 2.03055, y: 10.019865}
   m_EdgeRadius: 0.1
 --- !u!61 &1141966709
 BoxCollider2D:
@@ -427,7 +427,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -10.056191, y: 0.00000023841858}
+  m_Offset: {x: -13.092838, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -438,7 +438,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23234749, y: 9.981483}
+  m_Size: {x: 6.305641, y: 9.981483}
   m_EdgeRadius: 0.1
 --- !u!61 &1141966710
 BoxCollider2D:
@@ -453,7 +453,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.4605899, y: 4.970522}
+  m_Offset: {x: 0.46059036, y: 6.2878942}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -464,7 +464,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 23.722385, y: 0.040439606}
+  m_Size: {x: 23.722385, y: 2.5375843}
   m_EdgeRadius: 0.1
 --- !u!61 &1141966711
 BoxCollider2D:
@@ -505,7 +505,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.40301514, y: -4.9062934}
+  m_Offset: {x: 0.45985985, y: -6.913943}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -516,7 +516,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 23.607235, y: 0.09242916}
+  m_Size: {x: 23.720924, y: 3.7400503}
   m_EdgeRadius: 0.1
 --- !u!1 &1310521797
 GameObject:
@@ -3088,7 +3088,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
   m_Origin: {x: -12, y: -5, z: 0}
   m_Size: {x: 24, y: 10, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -3261,12 +3261,12 @@ GameObject:
   - component: {fileID: 1381756680}
   - component: {fileID: 1381756679}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: ExplosionCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1381756679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3282,18 +3282,6 @@ MonoBehaviour:
   explosionRate: 1
   force: 2
   range: 5
-  nextExplosionTime: 0
-  renderer: {fileID: 0}
-  red:
-    r: 1
-    g: 0
-    b: 0
-    a: 1
-  blue:
-    r: 0
-    g: 0
-    b: 1
-    a: 1
 --- !u!212 &1381756680
 SpriteRenderer:
   m_ObjectHideFlags: 0

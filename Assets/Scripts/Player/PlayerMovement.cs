@@ -28,9 +28,9 @@ public class PlayerMovement : MonoBehaviour
         movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         rb.velocity += movementInput * acceleration * Time.fixedDeltaTime;
 
-        //if (movementInput.magnitude < 0.01)
-        //{
-        //    rb.velocity = Vector2.zero;
-        //}
+        if (movementInput.magnitude < 0.01)
+        {
+            rb.velocity = rb.velocity * 0.9f;
+        }
     }
 }

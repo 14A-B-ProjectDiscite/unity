@@ -33,7 +33,12 @@ public class ExplosionTest : MonoBehaviour
         Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, range);
         foreach (Collider2D col in colls)
         {
-            col.GetComponent<Rigidbody2D>().AddForce((col.transform.position - transform.position) * force, ForceMode2D.Impulse);
+            Rigidbody2D thisRigidbody = col.GetComponent<Rigidbody2D>();
+            if (thisRigidbody != null)
+            {
+                thisRigidbody.AddForce((col.transform.position - transform.position) * force, ForceMode2D.Impulse);
+            }
+                
         }
         nextExplosionTime = Time.time + explosionRate;
         StartCoroutine(ChangeColor());
