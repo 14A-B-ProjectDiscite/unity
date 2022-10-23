@@ -13,26 +13,51 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float runMaxSpeed;
     [SerializeField] private float runAccelAmount;
     [SerializeField] private float runDeccelAmount;
-    [SerializeField] private bool doConserveMomentum;
     [SerializeField] private float lerpAmount;
 	[SerializeField] private float velPower;
+	[SerializeField] private float friction;
+    [SerializeField] private bool doConserveMomentum;
+	[SerializeField] private bool isMoving;
+	[SerializeField] private bool isUsingDecel;
+    public bool isGrounded;
+	public float nextLandingTime;
+	private SpriteRenderer spriteRenderer;
 
 
-    // Start is called before the first frame update
-    void Start()
+
+
+	// Start is called before the first frame update
+	void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //acceleration = normalAcceleration;
-    }
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		//acceleration = normalAcceleration;
+	}
 
     // Update is called once per frame
     void Update()
     {
 		movementInput.x = Input.GetAxisRaw("Horizontal");
 		movementInput.y = Input.GetAxisRaw("Vertical");
+
+        if (Time.time > nextLandingTime && !isGrounded)
+        {
+			isGrounded = true;
+        }
+
+        if (isGrounded)
+        {
+			spriteRenderer.color = Color.red;
+        }
+        else
+        {
+			spriteRenderer.color = Color.green;
+		}
+
 	}
 
-    private void FixedUpdate()
+
+	private void FixedUpdate()
     {
 		Run(lerpAmount);
     }
@@ -52,6 +77,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run(float lerpAmount)
 	{
+		if (!isGrounded)
+			movementInput = Vector2.zero;
+		isMoving = (Mathf.Abs(movementInput.magnitude) > 0.01f);
 		//Calculate the direction we want to move in and our desired velocity
 		Vector2 targetSpeed = movementInput * runMaxSpeed;
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
@@ -65,12 +93,15 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(targetSpeed.magnitude) > 0.01f)
         {
 			accelRate = runAccelAmount;
+			isUsingDecel = false;
         }
         else
         {
+			isUsingDecel = true;
 			accelRate = runDeccelAmount;
+
 		}
-			//accelRate = (Mathf.Abs(targetSpeed.magnitude) > 0.01f) ? runAccelAmount : runDeccelAmount;
+		//accelRate = (Mathf.Abs(targetSpeed.magnitude) > 0.01f) ? runAccelAmount : runDeccelAmount;
 
 		#endregion
 
@@ -79,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 		//We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
 		if (doConserveMomentum && Mathf.Abs(rb.velocity.magnitude) > Mathf.Abs(targetSpeed.magnitude) && Mathf.Sign(rb.velocity.magnitude) == Mathf.Sign(targetSpeed.magnitude) && Mathf.Abs(targetSpeed.magnitude) > 0.01f)
 		{
-			//Prevent any deceleration from happening, or in other words conserve are current momentum
+			//Prevent any deceleration from happening
 			//You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
 			accelRate = 0;
 		}
@@ -87,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
 		//Calculate difference between current velocity and desired velocity
 		Vector2 speedDif = targetSpeed - rb.velocity;
-		//Calculate force along x-axis to apply to thr player
+		//Calculate force
 		//Vector2 movement = new Vector2();
 		//movement.x =  Mathf.Pow(speedDif.x * accelRate, velPower) * Mathf.Sign(speedDif.x);
 		//movement.y =  Mathf.Pow(speedDif.y * accelRate, velPower) * Mathf.Sign(speedDif.y);
@@ -96,10 +127,15 @@ public class PlayerMovement : MonoBehaviour
 		//Convert this to a vector and apply to rigidbody
 		rb.AddForce(movement, ForceMode2D.Force);
 
-		/*
-		 * For those interested here is what AddForce() will do
-		 * rb.velocity = new Vector2(rb.velocity.magnitude + (Time.fixedDeltaTime  * speedDif * accelRate) / rb.mass, rb.velocity.y);
-		 * Time.fixedDeltaTime is by default in Unity 0.02 seconds equal to 50 FixedUpdate() calls per second
-		*/
+		//If affected by explosion or moving, then do not apply friction
+        if (isGrounded && !isMoving)
+        {
+			rb.velocity *= friction;
+        }
+
+		
+		 //AddForce() will do
+		 //rb.velocity = new Vector2(rb.velocity.magnitude + (Time.fixedDeltaTime  * speedDif * accelRate) / rb.mass, rb.velocity.y);
+		
 	}
 }

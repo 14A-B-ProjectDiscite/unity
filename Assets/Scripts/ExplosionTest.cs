@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class ExplosionTest : MonoBehaviour
 {
-    public float explosionRate;
-    public float force;
-    public float range;
+    [SerializeField] private float explosionRate;
+    [SerializeField] private float force;
+    [SerializeField] private float range;
+    [SerializeField] private float knockback;
     private float nextExplosionTime;
-    private SpriteRenderer renderer;
+    private SpriteRenderer spriteRenderer;
     private Color red = Color.red;
     private Color blue = Color.blue;
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         nextExplosionTime = Time.time;
     }
 
@@ -33,12 +34,33 @@ public class ExplosionTest : MonoBehaviour
         Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, range);
         foreach (Collider2D col in colls)
         {
-            Rigidbody2D thisRigidbody = col.GetComponent<Rigidbody2D>();
-            if (thisRigidbody != null)
+            //full vector that is range length, in the direction of the targer
+            Vector2 direction = (col.transform.position - transform.position).normalized * range;
+            Vector2 targetVector = col.transform.position - transform.position;
+            Vector2 Force =  (direction - targetVector) * force;
+            
+            PlayerMovement movementScript = col.GetComponent<PlayerMovement>();
+            if (movementScript != null)
             {
-                thisRigidbody.AddForce((col.transform.position - transform.position) * force, ForceMode2D.Impulse);
-            }
+                movementScript.isGrounded = false;
+                Rigidbody2D thisRigidbody = col.GetComponent<Rigidbody2D>();
+                if (thisRigidbody != null)
+                {
+                    thisRigidbody.AddForce(Force, ForceMode2D.Impulse);
+                    movementScript.nextLandingTime = Time.time + (knockback / thisRigidbody.mass) * Force.magnitude;
+                }
                 
+            }
+            else
+            {
+                Rigidbody2D thisRigidbody = col.GetComponent<Rigidbody2D>();
+                if (thisRigidbody != null)
+                {
+                    thisRigidbody.AddForce(Force, ForceMode2D.Impulse);
+                }
+            }
+            
+            
         }
         nextExplosionTime = Time.time + explosionRate;
         StartCoroutine(ChangeColor());
@@ -46,8 +68,14 @@ public class ExplosionTest : MonoBehaviour
 
     IEnumerator ChangeColor()
     {
-        renderer.color = red;
+        spriteRenderer.color = red;
         yield return new WaitForSeconds(.1f);
-        renderer.color = blue;
+        spriteRenderer.color = blue;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
