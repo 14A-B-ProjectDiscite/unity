@@ -5,10 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    //public float normalAcceleration;
-    //[SerializeField]
-    //private float friction = 0.9f;
-    ///*[HideInInspector] */public float acceleration;
+	//public float normalAcceleration;
+	//[SerializeField]
+	//private float friction = 0.9f;
+	///*[HideInInspector] */public float acceleration;
+	public DashAbility dashAbility;
+	public float dashCharges;
+	public float maxDashCharges;
+	public float dashRegenRate;
+
 	public MovementType movementType;
     [HideInInspector] public Vector2 movementInput;
 	[SerializeField] private float runMaxSpeed;
@@ -145,9 +150,10 @@ public class PlayerMovement : MonoBehaviour
 		
 		
 	}
-	public enum MovementType
-	{
-		Type1,
-		Type2
-	}
+	
+}
+public enum MovementType
+{
+    Type1,
+    Type2
 }

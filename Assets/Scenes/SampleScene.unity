@@ -3325,6 +3325,7 @@ GameObject:
   - component: {fileID: 1348875505}
   - component: {fileID: 1348875504}
   - component: {fileID: 1348875508}
+  - component: {fileID: 1348875509}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3417,6 +3418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c407b62ea5a7ce4bb6a261cd6ac6170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashAbility: {fileID: 11400000, guid: 2fe045d93d767a74990aadfa6e25e585, type: 2}
+  dashCharges: 0
+  maxDashCharges: 0
+  dashRegenRate: 0
+  movementType: 1
   movementInput: {x: 0, y: 0}
   runMaxSpeed: 10
   runAccelAmount: 5
@@ -3460,6 +3466,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!114 &1348875509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348875503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d50cf5aa599c74eae89916b3c094d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability: {fileID: 11400000, guid: 2fe045d93d767a74990aadfa6e25e585, type: 2}
+  key: 32
 --- !u!1 &1381756678
 GameObject:
   m_ObjectHideFlags: 0
