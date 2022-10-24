@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     //[SerializeField]
     //private float friction = 0.9f;
     ///*[HideInInspector] */public float acceleration;
+	public MovementType movementType;
     [HideInInspector] public Vector2 movementInput;
 	[SerializeField] private float runMaxSpeed;
     [SerializeField] private float runAccelAmount;
@@ -24,11 +25,10 @@ public class PlayerMovement : MonoBehaviour
 	private SpriteRenderer spriteRenderer;
 
 
-
-
 	// Start is called before the first frame update
 	void Start()
     {
+		
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		//acceleration = normalAcceleration;
@@ -118,15 +118,24 @@ public class PlayerMovement : MonoBehaviour
 
 		//Calculate difference between current velocity and desired velocity
 		Vector2 speedDif = targetSpeed - rb.velocity;
-		//Calculate force
-		//Vector2 movement = new Vector2();
-		//movement.x =  Mathf.Pow(speedDif.x * accelRate, velPower) * Mathf.Sign(speedDif.x);
-		//movement.y =  Mathf.Pow(speedDif.y * accelRate, velPower) * Mathf.Sign(speedDif.y);
-		Vector2 movement = speedDif * accelRate;
+        //Calculate force
+        Vector2 movement = new Vector2();
+        if (movementType == MovementType.Type1)
+		{
+			speedDif *= accelRate;
+
+            movement.x = Mathf.Pow(speedDif.x, velPower) * Mathf.Sign(speedDif.x);
+			movement.y = Mathf.Pow(speedDif.y, velPower) * Mathf.Sign(speedDif.y);
+		} else if (movementType == MovementType.Type2)
+		{
+            movement = speedDif * accelRate;
+        }
+
+        
 
 		//Convert this to a vector and apply to rigidbody
 		rb.AddForce(movement, ForceMode2D.Force);
-
+		
 		//If affected by explosion or moving, then do not apply friction
         if (isGrounded && !isMoving)
         {
@@ -134,8 +143,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
 		
-		 //AddForce() will do
-		 //rb.velocity = new Vector2(rb.velocity.magnitude + (Time.fixedDeltaTime  * speedDif * accelRate) / rb.mass, rb.velocity.y);
 		
+	}
+	public enum MovementType
+	{
+		Type1,
+		Type2
 	}
 }
