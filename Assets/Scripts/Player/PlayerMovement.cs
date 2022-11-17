@@ -9,11 +9,7 @@ public class PlayerMovement : MonoBehaviour
 	//[SerializeField]
 	//private float friction = 0.9f;
 	///*[HideInInspector] */public float acceleration;
-	public DashAbility dashAbility;
-	public float dashCharges;
-	public float maxDashCharges;
-	public float dashRegenRate;
-
+	
 	public MovementType movementType;
     [HideInInspector] public Vector2 movementInput;
 	[SerializeField] private float runMaxSpeed;
@@ -30,26 +26,40 @@ public class PlayerMovement : MonoBehaviour
 	private SpriteRenderer spriteRenderer;
 
 
-	// Start is called before the first frame update
+	public DashAbility dashAbility;
+	public float dashCharges;
+	public float maxDashCharges;
+	public float dashRegenRate;
+	float activeTime;
+	float cooldownTime;
+	[SerializeField] AbilityState dashState = AbilityState.ready;
+
 	void Start()
     {
-		
+		maxDashCharges = dashAbility.maxDashCharges;
+		dashRegenRate = dashAbility.dashRegenRate;
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		//acceleration = normalAcceleration;
 	}
 
-    // Update is called once per frame
     void Update()
     {
 		movementInput.x = Input.GetAxisRaw("Horizontal");
 		movementInput.y = Input.GetAxisRaw("Vertical");
 
-        if (Time.time > nextLandingTime && !isGrounded)
+		//Dash Regen
+		if (dashCharges < maxDashCharges)
+		{
+			dashCharges += Time.deltaTime * dashRegenRate;
+			dashCharges = Mathf.Clamp(dashCharges, 0, maxDashCharges);
+		}
+		//Grounded if ungrounded time is up
+		if (Time.time > nextLandingTime && !isGrounded)
         {
 			isGrounded = true;
         }
-
+		//Turn green if not grounded
         if (isGrounded)
         {
 			spriteRenderer.color = Color.red;
@@ -64,20 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
     {
+        
 		Run(lerpAmount);
+		Dash();
     }
-
- //   private void Move()
- //   {
-	//	rb.velocity += movementInput * acceleration * Time.fixedDeltaTime;
-
-	//	if (movementInput.magnitude < 0.01)
-	//	{
-	//		rb.velocity = rb.velocity * friction;
-	//	}
-	//}
-
-
 
 
     private void Run(float lerpAmount)
@@ -135,9 +135,6 @@ public class PlayerMovement : MonoBehaviour
 		{
             movement = speedDif * accelRate;
         }
-
-        
-
 		//Convert this to a vector and apply to rigidbody
 		rb.AddForce(movement, ForceMode2D.Force);
 		
@@ -146,11 +143,48 @@ public class PlayerMovement : MonoBehaviour
         {
 			rb.velocity *= friction;
         }
-
-		
-		
 	}
-	
+
+
+	void Dash()
+	{
+		switch (dashState)
+		{
+			case AbilityState.ready:
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
+					dashAbility.Dash(movementInput, rb);
+					dashState = AbilityState.active;
+					activeTime = dashAbility.activeTime;
+				}
+				break;
+			case AbilityState.active:
+				if (activeTime > 0)
+				{
+					activeTime -= Time.deltaTime;
+				}
+				else
+				{
+					dashState = AbilityState.cooldown;
+					cooldownTime = dashAbility.cooldownTime;
+				}
+				break;
+			case AbilityState.cooldown:
+				break;
+				if (cooldownTime > 0)
+				{
+					cooldownTime -= Time.deltaTime;
+				}
+				else
+				{
+					dashState = AbilityState.ready;
+				}
+			default:
+				break;
+
+		}
+	}
+
 }
 public enum MovementType
 {

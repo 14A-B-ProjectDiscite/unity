@@ -7,26 +7,28 @@ public class AbilityHolder : MonoBehaviour
     public ActiveAbility ability;
     float activeTime;
     float cooldownTime;
-    enum AbilityState
-    {
-        ready,
-        active,
-        cooldown
-    }
+    
 
-    AbilityState state = AbilityState.ready;
+    AbilityState dashState = AbilityState.ready;
 
-    public KeyCode key;
+    public KeyCode dashKey;
 
     void Update()
     {
-        switch (state)
+        Dash();
+
+
+    }
+
+    void Dash()
+    {
+        switch (dashState)
         {
             case AbilityState.ready:
-                if (Input.GetKeyDown(key))
+                if (Input.GetKeyDown(dashKey))
                 {
                     ability.Activate(gameObject);
-                    state = AbilityState.active;
+                    dashState = AbilityState.active;
                     activeTime = ability.activeTime;
                 }
                 break;
@@ -37,7 +39,7 @@ public class AbilityHolder : MonoBehaviour
                 }
                 else
                 {
-                    state = AbilityState.cooldown;
+                    dashState = AbilityState.cooldown;
                     cooldownTime = ability.cooldownTime;
                 }
                 break;
@@ -49,11 +51,11 @@ public class AbilityHolder : MonoBehaviour
                 }
                 else
                 {
-                    state = AbilityState.ready;
+                    dashState = AbilityState.ready;
                 }
             default:
                 break;
-        }
 
+        }
     }
 }

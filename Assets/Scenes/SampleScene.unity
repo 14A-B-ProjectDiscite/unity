@@ -3398,7 +3398,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 0.8
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -3418,10 +3418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c407b62ea5a7ce4bb6a261cd6ac6170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashAbility: {fileID: 11400000, guid: 2fe045d93d767a74990aadfa6e25e585, type: 2}
-  dashCharges: 0
-  maxDashCharges: 0
-  dashRegenRate: 0
   movementType: 1
   movementInput: {x: 0, y: 0}
   runMaxSpeed: 10
@@ -3435,6 +3431,10 @@ MonoBehaviour:
   isUsingDecel: 0
   isGrounded: 1
   nextLandingTime: 0
+  dashAbility: {fileID: 11400000, guid: 2fe045d93d767a74990aadfa6e25e585, type: 2}
+  dashCharges: 0
+  maxDashCharges: 0
+  dashRegenRate: 0
 --- !u!4 &1348875507
 Transform:
   m_ObjectHideFlags: 0

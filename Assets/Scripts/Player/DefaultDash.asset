@@ -15,4 +15,7 @@ MonoBehaviour:
   name: DefaultDash
   cooldownTime: 1
   activeTime: 1
-  dashVelocity: 50
+  dashVelocity: 5000
+  RigidbodyDrag: 0
+  maxDashCharges: 2
+  dashRegenRate: 1
