@@ -13,6 +13,8 @@ public class DashAbility : ActiveAbility
 
     public float dashRegenRate;
 
+    public float Cost;
+
     public void Dash(Vector2 dashDirection, Rigidbody2D rb)
     {
         //PlayerMovement movement = parent.GetComponent<PlayerMovement>();

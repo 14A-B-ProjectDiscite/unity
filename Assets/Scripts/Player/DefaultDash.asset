@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: DefaultDash
   m_EditorClassIdentifier: 
   name: DefaultDash
-  cooldownTime: 1
-  activeTime: 1
-  dashVelocity: 5000
+  cooldownTime: 0
+  activeTime: 0.2
+  dashVelocity: 30
   RigidbodyDrag: 0
   maxDashCharges: 2
   dashRegenRate: 1
+  Cost: 1

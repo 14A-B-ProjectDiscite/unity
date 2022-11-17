@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool doConserveMomentum;
 	[SerializeField] private bool isMoving;
 	[SerializeField] private bool isUsingDecel;
+	[SerializeField] private Slider dashSlider;
     public bool isGrounded;
 	public float nextLandingTime;
 	private SpriteRenderer spriteRenderer;
@@ -37,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
 	void Start()
     {
 		maxDashCharges = dashAbility.maxDashCharges;
+		dashSlider.maxValue = maxDashCharges;
+		dashSlider.value = dashCharges;
 		dashRegenRate = dashAbility.dashRegenRate;
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -45,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
 		movementInput.x = Input.GetAxisRaw("Horizontal");
 		movementInput.y = Input.GetAxisRaw("Vertical");
 
@@ -53,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			dashCharges += Time.deltaTime * dashRegenRate;
 			dashCharges = Mathf.Clamp(dashCharges, 0, maxDashCharges);
+			dashSlider.value = dashCharges;
 		}
 		//Grounded if ungrounded time is up
 		if (Time.time > nextLandingTime && !isGrounded)
@@ -60,23 +66,28 @@ public class PlayerMovement : MonoBehaviour
 			isGrounded = true;
         }
 		//Turn green if not grounded
-        if (isGrounded)
+        if (!isGrounded)
         {
-			spriteRenderer.color = Color.red;
+			spriteRenderer.color = Color.green;
+        } else if (dashState == AbilityState.active)
+        {
+            spriteRenderer.color = Color.blue;
         }
         else
         {
-			spriteRenderer.color = Color.green;
-		}
+            spriteRenderer.color = Color.red;
+        }
 
-	}
+    }
 
 
 	private void FixedUpdate()
     {
-        
 		Run(lerpAmount);
-		Dash();
+		if (isGrounded)
+		{
+            Dash();
+        }
     }
 
 
@@ -151,11 +162,12 @@ public class PlayerMovement : MonoBehaviour
 		switch (dashState)
 		{
 			case AbilityState.ready:
-				if (Input.GetKeyDown(KeyCode.Space))
+				if (Input.GetKey(KeyCode.Space) && dashCharges >= dashAbility.Cost)
 				{
 					dashAbility.Dash(movementInput, rb);
 					dashState = AbilityState.active;
 					activeTime = dashAbility.activeTime;
+					dashCharges -= dashAbility.Cost;
 				}
 				break;
 			case AbilityState.active:
@@ -170,15 +182,16 @@ public class PlayerMovement : MonoBehaviour
 				}
 				break;
 			case AbilityState.cooldown:
-				break;
-				if (cooldownTime > 0)
-				{
-					cooldownTime -= Time.deltaTime;
-				}
-				else
-				{
-					dashState = AbilityState.ready;
-				}
+                if (cooldownTime > 0)
+                {
+                    cooldownTime -= Time.deltaTime;
+                }
+                else
+                {
+                    dashState = AbilityState.ready;
+                }
+                break;
+				
 			default:
 				break;
 
