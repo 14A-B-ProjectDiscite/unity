@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     public WeaponSlot slot;
     public string primaryAttack;
     public string secondaryAttack;
+    public int maxCombo = 1;
 
     public virtual void Attack(int attackNum)
     {
