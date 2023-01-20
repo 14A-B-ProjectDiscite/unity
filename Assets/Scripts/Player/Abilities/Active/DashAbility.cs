@@ -5,6 +5,8 @@ using DG.Tweening;
 [CreateAssetMenu]
 public class DashAbility : ActiveAbility
 {
+    public PlayerStats stats;
+
     public float dashVelocity;
 
     public float RigidbodyDrag;
@@ -25,7 +27,7 @@ public class DashAbility : ActiveAbility
         //Camera.main.transform.DOComplete();
         //Camera.main.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
         rb.velocity = Vector2.zero;
-        rb.velocity += dashDirection.normalized * dashVelocity;
+        rb.velocity += dashDirection.normalized * (dashVelocity + stats.Agility.Value/100 * dashVelocity) * stats.DashSpeed.Value ;
 
     }
 }

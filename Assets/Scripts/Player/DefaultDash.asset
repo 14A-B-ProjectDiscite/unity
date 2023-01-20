@@ -15,7 +15,8 @@ MonoBehaviour:
   name: DefaultDash
   cooldownTime: 0
   activeTime: 0.2
-  dashVelocity: 30
+  stats: {fileID: 11400000, guid: 7996022482e7b0f4ea44033742e48812, type: 2}
+  dashVelocity: 10
   RigidbodyDrag: 0
   maxDashCharges: 2
   dashRegenRate: 1

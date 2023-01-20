@@ -3,37 +3,25 @@ using Kryz.CharacterStats.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerStats : MonoBehaviour
+[CreateAssetMenu]
+public class PlayerStats : ScriptableObject
 {
-    public List<CharacterStat> characterStats= new List<CharacterStat>();
-    [SerializeField] StatPanel statPanel;
+    public GameEvent WeightChanged;
 
-    private void Awake()
-    {
-        CharacterStat Strength = new CharacterStat();
-        characterStats.Add(Strength);
-        CharacterStat Agility = new CharacterStat();
-        characterStats.Add(Agility);
-        CharacterStat Weight = new CharacterStat();
-        characterStats.Add(Weight);
-        CharacterStat Stealth = new CharacterStat();
-        characterStats.Add(Stealth);
-
-        statPanel.SetStats(characterStats.ToArray());
-        statPanel.UpdateStatValues();
-
-    }
-    public void AddStat(CharacterStat stat) {
-        characterStats.Add(stat);
-        statPanel.SetStats(characterStats.ToArray());
-        statPanel.UpdateStatValues();
-    }
+    public CharacterStat Strength; //how much stun, meele damage
+    public CharacterStat Agility; //speed, attack speed, animationspeed, dashspeed
+    public CharacterStat Intelligence; //Energy damage, max energy
+    public CharacterStat Wisdom; //Energy damage, energy regeneration
+    public CharacterStat Constitution; //Max hp, resistances
 
 
-    /*public void Equip(EquippableItem item)
-    {
-
-    }*/
+    public CharacterStat Vitality; //hp regeneration
+    public CharacterStat Blood; //Blood skills
+    public CharacterStat Friction;
+    public CharacterStat MaxSpeed;
+    public CharacterStat Acceleration;
+    public CharacterStat Weight;
+    public CharacterStat DashSpeed;
+    public CharacterStat Soul; //Summoning, Soul powers
 
 }

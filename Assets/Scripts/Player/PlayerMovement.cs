@@ -11,16 +11,14 @@ public class PlayerMovement : MonoBehaviour
 	//private float friction = 0.9f;
 	///*[HideInInspector] */public float acceleration;
 	
-	public MovementType movementType;
     [HideInInspector] public Vector2 movementInput;
-	[SerializeField] private float runMaxSpeed;
-    [SerializeField] private float runAccelAmount;
+    [SerializeField] private PlayerStats stats;
     [SerializeField] private float runDeccelAmount;
     [SerializeField] private float lerpAmount;
-	[SerializeField] private float velPower;
-	[SerializeField] private float friction;
+
     [SerializeField] private bool doConserveMomentum;
 	[SerializeField] private bool isMoving;
+	[SerializeField] private bool isDashing = false;
 	[SerializeField] private bool isUsingDecel;
 	[SerializeField] private Slider dashSlider;
     public bool isGrounded;
@@ -83,11 +81,17 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
     {
-		Run(lerpAmount);
-		if (isGrounded)
-		{
+        if (!isDashing)
+        {
+            Run(lerpAmount);
+        }
+        if (isGrounded)
+        {
             Dash();
         }
+        
+		
+		
     }
 
 
@@ -97,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 			movementInput = Vector2.zero;
 		isMoving = (Mathf.Abs(movementInput.magnitude) > 0.01f);
 		//Calculate the direction we want to move in and our desired velocity
-		Vector2 targetSpeed = movementInput * runMaxSpeed;
+		Vector2 targetSpeed = movementInput * (stats.MaxSpeed.Value + (stats.Agility.Value/100 * stats.MaxSpeed.Value));
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
 		targetSpeed = Vector2.Lerp(rb.velocity, targetSpeed, lerpAmount);
 
@@ -108,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         //or trying to decelerate (stop). As well as applying a multiplier if we're air borne.
         if (Mathf.Abs(targetSpeed.magnitude) > 0.01f)
         {
-			accelRate = runAccelAmount;
+			accelRate = stats.Acceleration.Value * stats.Weight.Value;
 			isUsingDecel = false;
         }
         else
@@ -136,23 +140,23 @@ public class PlayerMovement : MonoBehaviour
 		Vector2 speedDif = targetSpeed - rb.velocity;
         //Calculate force
         Vector2 movement = new Vector2();
-        if (movementType == MovementType.Type1)
+        /*if (movementType == MovementType.Type1)
 		{
 			speedDif *= accelRate;
 
             movement.x = Mathf.Pow(speedDif.x, velPower) * Mathf.Sign(speedDif.x);
-			movement.y = Mathf.Pow(speedDif.y, velPower) * Mathf.Sign(speedDif.y);
-		} else if (movementType == MovementType.Type2)
-		{
+			movement.y = Mathf.Pow(speedDif.y, velPower) * Mathf.Sign(speedDif.y);*/
+		//} else if (movementType == MovementType.Type2)
+		//{
             movement = speedDif * accelRate;
-        }
+        //}
 		//Convert this to a vector and apply to rigidbody
 		rb.AddForce(movement, ForceMode2D.Force);
 		
 		//If affected by explosion or moving, then do not apply friction
         if (isGrounded && !isMoving)
         {
-			rb.velocity *= friction;
+			rb.velocity *= stats.Friction.Value;
         }
 	}
 
@@ -168,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
 					dashState = AbilityState.active;
 					activeTime = dashAbility.activeTime;
 					dashCharges -= dashAbility.Cost;
+					isDashing= true;
 				}
 				break;
 			case AbilityState.active:
@@ -179,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
 				{
 					dashState = AbilityState.cooldown;
 					cooldownTime = dashAbility.cooldownTime;
+					isDashing = false;
 				}
 				break;
 			case AbilityState.cooldown:
@@ -199,8 +205,4 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 }
-public enum MovementType
-{
-    Type1,
-    Type2
-}
+

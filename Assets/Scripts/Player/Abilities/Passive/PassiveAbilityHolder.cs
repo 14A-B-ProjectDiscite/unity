@@ -6,5 +6,4 @@ using UnityEngine;
 public class PassiveAbilityHolder : MonoBehaviour
 {
     public List<PassiveAbility> PassiveAbilityList;
-
 }
