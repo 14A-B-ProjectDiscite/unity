@@ -16,7 +16,7 @@ MonoBehaviour:
   Strength:
     BaseValue: 10
   Agility:
-    BaseValue: 0
+    BaseValue: 10
   Intelligence:
     BaseValue: 10
   Wisdom:
@@ -28,10 +28,14 @@ MonoBehaviour:
   Blood:
     BaseValue: 0
   Friction:
-    BaseValue: 0.9
+    BaseValue: 0.8
   MaxSpeed:
-    BaseValue: 20
+    BaseValue: 5
   Acceleration:
-    BaseValue: 5000
+    BaseValue: 5
+  Weight:
+    BaseValue: 100
+  DashSpeed:
+    BaseValue: 1
   Soul:
     BaseValue: 10
