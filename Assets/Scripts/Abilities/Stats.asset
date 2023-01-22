@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e5c501261ae89946b9f7eb4df9d0e73, type: 3}
-  m_Name: Player Stats
+  m_Name: Stats
   m_EditorClassIdentifier: 
   WeightChanged: {fileID: 11400000, guid: 413b80fc093eabd4f884a26c3bc389ac, type: 2}
   Strength:
     BaseValue: 10
   Agility:
-    BaseValue: 10
+    BaseValue: 50
   Intelligence:
-    BaseValue: 10
+    BaseValue: 26.73
   Wisdom:
     BaseValue: 10
   Constitution:
@@ -28,11 +28,11 @@ MonoBehaviour:
   Blood:
     BaseValue: 0
   Friction:
-    BaseValue: 0.8
+    BaseValue: 0.9
   MaxSpeed:
-    BaseValue: 5
+    BaseValue: 3
   Acceleration:
-    BaseValue: 5
+    BaseValue: 10
   Weight:
     BaseValue: 100
   DashSpeed:

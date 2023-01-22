@@ -11,35 +11,19 @@ public class PlayerMovement : MonoBehaviour
 	//private float friction = 0.9f;
 	///*[HideInInspector] */public float acceleration;
 	
-    [HideInInspector] public Vector2 movementInput;
+    [SerializeField] public InputSO input;
     [SerializeField] private PlayerStats stats;
+    [SerializeField] private PlayerStates states;
     [SerializeField] private float runDeccelAmount;
     [SerializeField] private float lerpAmount;
 
     [SerializeField] private bool doConserveMomentum;
-	[SerializeField] private bool isMoving;
-	[SerializeField] private bool isDashing = false;
-	[SerializeField] private bool isUsingDecel;
-	[SerializeField] private Slider dashSlider;
-    public bool isGrounded;
+
 	public float nextLandingTime;
 	private SpriteRenderer spriteRenderer;
 
-
-	public DashAbility dashAbility;
-	public float dashCharges;
-	public float maxDashCharges;
-	public float dashRegenRate;
-	float activeTime;
-	float cooldownTime;
-	[SerializeField] AbilityState dashState = AbilityState.ready;
-
 	void Start()
     {
-		maxDashCharges = dashAbility.maxDashCharges;
-		dashSlider.maxValue = maxDashCharges;
-		dashSlider.value = dashCharges;
-		dashRegenRate = dashAbility.dashRegenRate;
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		//acceleration = normalAcceleration;
@@ -47,27 +31,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-		movementInput.x = Input.GetAxisRaw("Horizontal");
-		movementInput.y = Input.GetAxisRaw("Vertical");
-
-		//Dash Regen
-		if (dashCharges < maxDashCharges)
-		{
-			dashCharges += Time.deltaTime * dashRegenRate;
-			dashCharges = Mathf.Clamp(dashCharges, 0, maxDashCharges);
-			dashSlider.value = dashCharges;
-		}
 		//Grounded if ungrounded time is up
-		if (Time.time > nextLandingTime && !isGrounded)
+		if (Time.time > nextLandingTime && !states.isGrounded)
         {
-			isGrounded = true;
+			states.isGrounded = true;
         }
 		//Turn green if not grounded
-        if (!isGrounded)
+        if (!states.isGrounded)
         {
 			spriteRenderer.color = Color.green;
-        } else if (dashState == AbilityState.active)
+        }
+        else if (states.isDashing)
         {
             spriteRenderer.color = Color.blue;
         }
@@ -81,13 +55,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
     {
-        if (!isDashing)
+        if (!states.isDashing)
         {
             Run(lerpAmount);
-        }
-        if (isGrounded)
-        {
-            Dash();
         }
         
 		
@@ -97,11 +67,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run(float lerpAmount)
 	{
-		if (!isGrounded)
-			movementInput = Vector2.zero;
-		isMoving = (Mathf.Abs(movementInput.magnitude) > 0.01f);
+		if (!states.isGrounded)
+			input.MovementDirection = Vector2.zero;
+		states.isMoving = (Mathf.Abs(input.MovementDirection.magnitude) > 0.01f);
 		//Calculate the direction we want to move in and our desired velocity
-		Vector2 targetSpeed = movementInput * (stats.MaxSpeed.Value + (stats.Agility.Value/100 * stats.MaxSpeed.Value));
+		Vector2 targetSpeed = input.MovementDirection * (stats.MaxSpeed.Value + (stats.Agility.Value/100 * stats.MaxSpeed.Value));
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
 		targetSpeed = Vector2.Lerp(rb.velocity, targetSpeed, lerpAmount);
 
@@ -113,11 +83,9 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(targetSpeed.magnitude) > 0.01f)
         {
 			accelRate = stats.Acceleration.Value * stats.Weight.Value;
-			isUsingDecel = false;
         }
         else
         {
-			isUsingDecel = true;
 			accelRate = runDeccelAmount;
 
 		}
@@ -154,55 +122,14 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddForce(movement, ForceMode2D.Force);
 		
 		//If affected by explosion or moving, then do not apply friction
-        if (isGrounded && !isMoving)
+        if (states.isGrounded && !states.isMoving)
         {
 			rb.velocity *= stats.Friction.Value;
         }
 	}
 
 
-	void Dash()
-	{
-		switch (dashState)
-		{
-			case AbilityState.ready:
-				if (Input.GetKey(KeyCode.Space) && dashCharges >= dashAbility.Cost)
-				{
-					dashAbility.Dash(movementInput, rb);
-					dashState = AbilityState.active;
-					activeTime = dashAbility.activeTime;
-					dashCharges -= dashAbility.Cost;
-					isDashing= true;
-				}
-				break;
-			case AbilityState.active:
-				if (activeTime > 0)
-				{
-					activeTime -= Time.deltaTime;
-				}
-				else
-				{
-					dashState = AbilityState.cooldown;
-					cooldownTime = dashAbility.cooldownTime;
-					isDashing = false;
-				}
-				break;
-			case AbilityState.cooldown:
-                if (cooldownTime > 0)
-                {
-                    cooldownTime -= Time.deltaTime;
-                }
-                else
-                {
-                    dashState = AbilityState.ready;
-                }
-                break;
-				
-			default:
-				break;
-
-		}
-	}
+	
 
 }
 
