@@ -16,7 +16,7 @@ MonoBehaviour:
   Strength:
     BaseValue: 10
   Agility:
-    BaseValue: 50
+    BaseValue: 0
   Intelligence:
     BaseValue: 26.73
   Wisdom:
@@ -30,7 +30,7 @@ MonoBehaviour:
   Friction:
     BaseValue: 0.9
   MaxSpeed:
-    BaseValue: 3
+    BaseValue: 1.5
   Acceleration:
     BaseValue: 10
   Weight:
