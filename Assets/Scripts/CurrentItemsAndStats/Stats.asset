@@ -13,31 +13,46 @@ MonoBehaviour:
   m_Name: Stats
   m_EditorClassIdentifier: 
   WeightChanged: {fileID: 11400000, guid: 413b80fc093eabd4f884a26c3bc389ac, type: 2}
+  defStats: {fileID: 11400000, guid: 824ca58c21c67bd44af01cf333d215ae, type: 2}
   Strength:
-    BaseValue: 10
+    BaseValue: 0
+    _value: 0
   Agility:
     BaseValue: 0
+    _value: 36
   Intelligence:
-    BaseValue: 26.73
+    BaseValue: 0
+    _value: 0
   Wisdom:
-    BaseValue: 10
+    BaseValue: 0
+    _value: 0
   Constitution:
-    BaseValue: 10
+    BaseValue: 0
+    _value: 0
   Vitality:
     BaseValue: 0
+    _value: 0
   Blood:
     BaseValue: 0
+    _value: 0
   Friction:
     BaseValue: 0.9
+    _value: 0.9
   MaxSpeed:
-    BaseValue: 1.5
+    BaseValue: 3
+    _value: 3
   Acceleration:
     BaseValue: 10
+    _value: 10
   Weight:
     BaseValue: 100
+    _value: 100
   DashSpeed:
     BaseValue: 1
+    _value: 1
   Soul:
-    BaseValue: 10
+    BaseValue: 0
+    _value: 0
   ChoiceNumber:
     BaseValue: 3
+    _value: 3

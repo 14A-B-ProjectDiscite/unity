@@ -10,4 +10,8 @@ public class PlayerEvents : MonoBehaviour
     {
         rb.mass = stats.Weight.Value;
     }
+    private void Start()
+    {
+        stats.ResetStats();
+    }
 }

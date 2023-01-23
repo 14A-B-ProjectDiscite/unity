@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3996895984c32242a6720e131313151, type: 3}
+  m_Name: DefaultStats
+  m_EditorClassIdentifier: 
+  Strength: 0
+  Agility: 0
+  Intelligence: 0
+  Wisdom: 0
+  Constitution: 0
+  Vitality: 0
+  Blood: 0
+  Friction: 0.9
+  MaxSpeed: 3
+  Acceleration: 10
+  Weight: 100
+  DashSpeed: 1
+  Soul: 0
+  ChoiceNumber: 3
