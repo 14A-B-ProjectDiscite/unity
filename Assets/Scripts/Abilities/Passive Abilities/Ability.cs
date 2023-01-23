@@ -12,6 +12,7 @@ public class Ability : ScriptableObject
     public string Name;
     public Sprite Image;
     public Rarity Rarity;
+    public Faction Faction;
     public string Description;
     public bool isBoss;
 
@@ -23,4 +24,13 @@ public enum Rarity
     Rare,
     Epic,
     Legendary
+}
+
+public enum Faction
+{
+    Might,
+    Blood,
+    Darkness,
+    Technology,
+    Swiftness
 }

@@ -24,4 +24,6 @@ public class PlayerStats : ScriptableObject
     public CharacterStat DashSpeed;
     public CharacterStat Soul; //Summoning, Soul powers
 
+    public CharacterStat ChoiceNumber;
+
 }

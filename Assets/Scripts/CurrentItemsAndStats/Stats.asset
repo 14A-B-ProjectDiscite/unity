@@ -39,3 +39,5 @@ MonoBehaviour:
     BaseValue: 1
   Soul:
     BaseValue: 10
+  ChoiceNumber:
+    BaseValue: 3

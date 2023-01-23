@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class AbilityOrb : MonoBehaviour
 {
-
+    [SerializeField] bool GeneralOrb;
+    [SerializeField] ChoiceEvent ChoiceEvent;
+    [SerializeField] PlayerStats stats;
+    [Space]
     public float defaultCommon;
     public float defaultUncommon;
     public float defaultRare;
@@ -19,7 +23,62 @@ public class AbilityOrb : MonoBehaviour
     public float addToLegendary;
 
     [SerializeField] ItemProbabilitySO probabilities;
-    [SerializeField] AbilityHolder AbilityPool;
+    [SerializeField] AbilityPool CommonPool;
+    [SerializeField] AbilityPool UncommonPool;
+    [SerializeField] AbilityPool RarePool;
+    [SerializeField] AbilityPool EpicPool;
+    [SerializeField] AbilityPool LegendaryPool;
+    [SerializeField] AbilityPool FactionPool;
+
+    List<PassiveAbility> intersectedPool;
+    List<PassiveAbility> result;
+
+    PassiveAbility GenerateAbility()
+    {
+        Rarity a = GenerateRarity();
+        if (a == Rarity.Common)
+        {
+            intersectedPool = IntersectPool(CommonPool);
+            return GetRandomFromList(intersectedPool);
+
+        }
+        else if (a == Rarity.Uncommon)
+        {
+            intersectedPool = IntersectPool(UncommonPool);
+            return GetRandomFromList(intersectedPool);
+        }
+        else if (a == Rarity.Rare)
+        {
+            intersectedPool = IntersectPool(RarePool);
+            return GetRandomFromList(intersectedPool);
+        }
+        else if (a == Rarity.Epic)
+        {
+            intersectedPool = IntersectPool(EpicPool);
+            return GetRandomFromList(intersectedPool);
+        }
+        else if (a == Rarity.Legendary)
+        {
+            intersectedPool = IntersectPool(LegendaryPool);
+            return GetRandomFromList(intersectedPool);
+        }
+        Debug.Log("Be se ment az ifekbe");
+        return null;
+    }
+    PassiveAbility GetRandomFromList(List<PassiveAbility> list)
+    {
+        int a = Random.Range(0, list.Count);
+        return list[a];
+    }
+
+    List<PassiveAbility> IntersectPool(AbilityPool pool)
+    {
+        if (GeneralOrb)
+        {
+            return pool.Items;
+        }
+        return (List<PassiveAbility>)pool.Items.Intersect(FactionPool.Items);
+    }
 
     Rarity GenerateRarity()
     {
@@ -66,50 +125,8 @@ public class AbilityOrb : MonoBehaviour
     {
         ResetProbalities();
         //InvokeRepeating("Test", 0, 1);
+        result = new List<PassiveAbility>();
     }
-
-    /*void Test()
-    {
-        string output = "";
-        
-        for (int i = 0; i < 4; i++)
-        {
-            int common = 0;
-            int uncommon = 0;
-            int rare = 0;
-            int epic = 0;
-            int legendary = 0;
-            for (int j = 0; j < 28; j++)
-            {
-                Rarity a = GenerateRarity();
-                if (a == Rarity.Common)
-                {
-                    common++;
-                }
-                else if (a == Rarity.Uncommon)
-                {
-                    uncommon++;
-                }
-                else if (a == Rarity.Rare)
-                {
-                    rare++;
-                }
-                else if (a == Rarity.Epic)
-                {
-                    epic++;
-                }
-                else if (a == Rarity.Legendary)
-                {
-                    legendary++;
-                }
-            }
-            output += "Common: " + common + " Uncommon: " + uncommon + " Rare: " + rare + " Epic: " + epic + "Legendary: " + legendary + "\n";
-
-        }
-        Debug.Log(output);
-        ResetProbalities();
-    }*/
-
     private void ResetProbalities()
     {
         probabilities.Common = defaultCommon;
@@ -118,4 +135,31 @@ public class AbilityOrb : MonoBehaviour
         probabilities.Epic = defaultEpic;
         probabilities.Legendary = defaultLegendary;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        int chNum = ((int)stats.ChoiceNumber.Value);
+        for (int i = 0; i < chNum; i++)
+        {
+            PassiveAbility ab = GenerateAbility();
+            if (ab == null)
+            {
+                Debug.Log("Nullot general");
+            }
+            result.Add(ab);
+            
+        }
+        string message = "";
+        foreach (var item in result)
+        {
+            if (item == null)
+            {
+                message += "null;";
+            }
+        }
+        Debug.Log("Ability Orb: " + result.Count + "\n" + message);
+        ChoiceEvent.Raise(result);
+        result.Clear();
+    }
+
 }
