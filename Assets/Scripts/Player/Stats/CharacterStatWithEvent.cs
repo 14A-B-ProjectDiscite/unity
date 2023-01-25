@@ -1,18 +1,21 @@
+using Kryz.CharacterStats;
+using Kryz.CharacterStats.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStatWithEvent : MonoBehaviour
+public class CharacterStatWithEvent : CharacterStat
 {
-    // Start is called before the first frame update
-    void Start()
+    private GameEvent ge;
+    public CharacterStatWithEvent(GameEvent gameEvent, float baseValue)
     {
-        
+        BaseValue = baseValue;
+        ge = gameEvent;
     }
-
-    // Update is called once per frame
-    void Update()
+     
+    public override void AddModifier(StatModifier mod)
     {
-        
+        base.AddModifier(mod);
+        ge.Raise();
     }
 }

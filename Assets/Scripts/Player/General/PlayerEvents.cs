@@ -5,13 +5,10 @@ using UnityEngine;
 public class PlayerEvents : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public PlayerStats stats;
-    public void StatChanged()
+    public Stat Weight;
+    public void WeightChanged()
     {
-        rb.mass = stats.Weight.Value;
+        rb.mass = Weight.Statistic.Value;
     }
-    private void Start()
-    {
-        stats.ResetStats();
-    }
+
 }

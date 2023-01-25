@@ -18,11 +18,11 @@ MonoBehaviour:
   Faction: 4
   Description: Gain +100% Agility
   isBoss: 0
-  StrengthBonus: 0
-  AgilityBonus: 0
-  IntelligenceBonus: 0
-  VitalityBonus: 0
-  StrengthPercentBonus: 0
-  AgilityPercentBonus: 100
-  IntelligencePercentBonus: 0
-  VitalityPercentBonus: 0
+  stats:
+  - {fileID: 11400000, guid: cdd71c4ae10d78648af2513922a5304a, type: 2}
+  Flat:
+  - 0
+  PercentAdd:
+  - 100
+  PercentMult:
+  - 0

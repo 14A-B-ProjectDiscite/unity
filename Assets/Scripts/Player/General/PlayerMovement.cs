@@ -12,7 +12,11 @@ public class PlayerMovement : MonoBehaviour
 	///*[HideInInspector] */public float acceleration;
 	
     [SerializeField] public InputSO input;
-    [SerializeField] private PlayerStats stats;
+    [SerializeField] private Stat Agility;
+    [SerializeField] private Stat MaxSpeed;
+    [SerializeField] private Stat Acceleration;
+    [SerializeField] private Stat Friction;
+    [SerializeField] private Stat Weight;
     [SerializeField] private PlayerStates states;
     [SerializeField] private float runDeccelAmount;
     [SerializeField] private float lerpAmount;
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 			input.MovementDirection = Vector2.zero;
 		states.isMoving = (Mathf.Abs(input.MovementDirection.magnitude) > 0.01f);
 		//Calculate the direction we want to move in and our desired velocity
-		Vector2 targetSpeed = input.MovementDirection * (stats.MaxSpeed.Value + (stats.Agility.Value/100 * stats.MaxSpeed.Value));
+		Vector2 targetSpeed = input.MovementDirection * (MaxSpeed.Statistic.Value + (Agility.Statistic.Value/100 * MaxSpeed.Statistic.Value));
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
 		targetSpeed = Vector2.Lerp(rb.velocity, targetSpeed, lerpAmount);
 
@@ -82,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         //or trying to decelerate (stop). As well as applying a multiplier if we're air borne.
         if (Mathf.Abs(targetSpeed.magnitude) > 0.01f)
         {
-			accelRate = stats.Acceleration.Value * stats.Weight.Value;
+			accelRate = Acceleration.Statistic.Value * Weight.Statistic.Value;
         }
         else
         {
@@ -124,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 		//If affected by explosion or moving, then do not apply friction
         if (states.isGrounded && !states.isMoving)
         {
-			rb.velocity *= stats.Friction.Value;
+			rb.velocity *= Friction.Statistic.Value;
         }
 	}
 

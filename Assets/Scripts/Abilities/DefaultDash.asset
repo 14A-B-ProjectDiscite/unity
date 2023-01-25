@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79697a86cab69da4bb89f0be8f2f46d0, type: 3}
   m_Name: DefaultDash
   m_EditorClassIdentifier: 
-  name: DefaultDash
+  Name: 
+  Image: {fileID: 0}
+  Rarity: 0
+  Faction: 0
+  Description: 
+  isBoss: 0
   cooldownTime: 0.1
   activeTime: 0.1
-  stats: {fileID: 11400000, guid: 7996022482e7b0f4ea44033742e48812, type: 2}
+  Agility: {fileID: 11400000, guid: cdd71c4ae10d78648af2513922a5304a, type: 2}
+  DashSpeed: {fileID: 11400000, guid: 7afcaadff14c1734abf7fd058ceb481d, type: 2}
   dashVelocity: 5
   maxDashCharges: 1
   dashRegenRate: 1

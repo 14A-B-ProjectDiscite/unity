@@ -9,20 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff268f5f7f58eea48bb5a5979c92ad7d, type: 3}
-  m_Name: Minor Agility 1
+  m_Script: {fileID: 11500000, guid: 12d7ad0ff27549e40a463f5d973495fa, type: 3}
+  m_Name: HeavyBody
   m_EditorClassIdentifier: 
-  Name: Minor Agility
+  Name: HeavyBody
   Image: {fileID: 21300000, guid: 2880f313f373b844f8573767217a4162, type: 3}
   Rarity: 0
-  Faction: 4
-  Description: Gain 5 Agility
+  Faction: 0
+  Description: Increaseses your weight.
   isBoss: 0
   stats:
-  - {fileID: 11400000, guid: cdd71c4ae10d78648af2513922a5304a, type: 2}
+  - {fileID: 11400000, guid: 7c1757a5ff994184ca52e7dec08abd5f, type: 2}
   Flat:
-  - 5
+  - 10
   PercentAdd:
   - 0
   PercentMult:
   - 0
+  gameEvent: {fileID: 11400000, guid: 8f20d205cff56bd48adf305f15c8c393, type: 2}

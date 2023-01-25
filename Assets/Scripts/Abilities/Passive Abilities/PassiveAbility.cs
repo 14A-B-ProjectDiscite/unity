@@ -5,42 +5,35 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PassiveAbility : Ability
 {
-    public int StrengthBonus;
-    public int AgilityBonus;
-    public int IntelligenceBonus;
-    public int VitalityBonus;
-    [Space]
-    public float StrengthPercentBonus;
-    public float AgilityPercentBonus;
-    public float IntelligencePercentBonus;
-    public float VitalityPercentBonus;
+    [SerializeField] List<Stat> stats;
+    [SerializeField] List<float> Flat;
+    [SerializeField] List<float> PercentAdd;
+    [SerializeField] List<float> PercentMult;
 
-    public void Equip(PlayerStats c)
+    public virtual void Equip()
     {
-        if (StrengthBonus != 0)
-            c.Strength.AddModifier(new StatModifier(StrengthBonus, StatModType.Flat, this));
-        if (AgilityBonus != 0)
-            c.Agility.AddModifier(new StatModifier(AgilityBonus, StatModType.Flat, this));
-        if (IntelligenceBonus != 0)
-            c.Intelligence.AddModifier(new StatModifier(IntelligenceBonus, StatModType.Flat, this));
-        if (VitalityBonus != 0)
-            c.Vitality.AddModifier(new StatModifier(VitalityBonus, StatModType.Flat, this));
-
-        if (StrengthPercentBonus != 0)
-            c.Strength.AddModifier(new StatModifier(StrengthPercentBonus, StatModType.PercentMult, this));
-        if (AgilityPercentBonus != 0)
-            c.Agility.AddModifier(new StatModifier(AgilityPercentBonus, StatModType.PercentMult, this));
-        if (IntelligencePercentBonus != 0)
-            c.Intelligence.AddModifier(new StatModifier(IntelligencePercentBonus, StatModType.PercentMult, this));
-        if (VitalityPercentBonus != 0)
-            c.Vitality.AddModifier(new StatModifier(VitalityPercentBonus, StatModType.PercentMult, this));
+        if (stats.Count != Flat.Count || stats.Count != PercentAdd.Count || stats.Count != PercentMult.Count )
+        {
+            Debug.Log("The ability you are trying to add does not have matching list lenghts");
+            return;
+        }
+        for (int i = 0; i < stats.Count; i++)
+        {
+            if (Flat[i] != 0)
+                stats[i].Statistic.AddModifier(new StatModifier(Flat[i], StatModType.Flat, this));
+            if (PercentAdd[i] != 0)
+                stats[i].Statistic.AddModifier(new StatModifier(PercentAdd[i], StatModType.PercentAdd, this));
+            if (PercentMult[i] != 0)
+                stats[i].Statistic.AddModifier(new StatModifier(PercentMult[i], StatModType.PercentMult, this));
+        }
     }
 
-    public void Unequip(PlayerStats c)
+    public virtual void Unequip()
     {
-        c.Strength.RemoveAllModifiersFromSource(this);
-        c.Agility.RemoveAllModifiersFromSource(this);
-        c.Intelligence.RemoveAllModifiersFromSource(this);
-        c.Vitality.RemoveAllModifiersFromSource(this);
+        foreach (Stat stat in stats)
+        {
+            stat.Statistic.RemoveAllModifiersFromSource(this);
+        }
+        
     }
 }

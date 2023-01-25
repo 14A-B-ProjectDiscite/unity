@@ -4,16 +4,15 @@ using UnityEngine;
 [CreateAssetMenu]
 public class AbilityHolder : RuntimeSet<PassiveAbility>
 {
-    [SerializeField] PlayerStats stats;
-    public override void Add(PassiveAbility thing)
+    public override void Add(PassiveAbility ability)
     {
-        Items.Add(thing);
-        thing.Equip(stats);
+        Items.Add(ability);
+        ability.Equip();
     }
 
     public override void Remove(PassiveAbility thing)
     {
-        thing.Unequip(stats);
+        thing.Unequip();
         Items.Remove(thing);
         
     }

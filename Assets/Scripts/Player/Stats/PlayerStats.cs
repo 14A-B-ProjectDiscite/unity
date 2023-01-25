@@ -28,7 +28,7 @@ public class PlayerStats : ScriptableObject
 
     public CharacterStat ChoiceNumber;
 
-    public void ResetStats()
+    public void OnEnable()
     {
         Strength = new CharacterStat(defStats.Strength);
         Agility = new CharacterStat(defStats.Agility);
@@ -44,7 +44,5 @@ public class PlayerStats : ScriptableObject
         DashSpeed = new CharacterStat(defStats.DashSpeed);
         Soul = new CharacterStat(defStats.Soul);
         ChoiceNumber = new CharacterStat(defStats.ChoiceNumber);
-
-
     }
 }

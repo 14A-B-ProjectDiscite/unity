@@ -42,6 +42,7 @@ namespace Kryz.CharacterStats
 		{
 			isDirty = true;
 			statModifiers.Add(mod);
+
 		}
 
 		public virtual bool RemoveModifier(StatModifier mod)
