@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Kryz.CharacterStats
-{
+
 	[Serializable]
 	public class CharacterStat
 	{
@@ -111,4 +110,4 @@ namespace Kryz.CharacterStats
 			return (float)Math.Round(finalValue, 4);
 		}
 	}
-}
+

@@ -1,8 +1,7 @@
-using Kryz.CharacterStats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Abilities/PassiveAbility")]
 public class PassiveAbility : Ability
 {
     [SerializeField] List<Stat> stats;

@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AbilityOrb : MonoBehaviour
 {
     [SerializeField] bool GeneralOrb;
     [SerializeField] ChoiceEvent ChoiceEvent;
-    [SerializeField] PlayerStats stats;
+    [SerializeField] FloatVariable ChoiceNumber;
     [Space]
     public float defaultCommon;
     public float defaultUncommon;
@@ -138,7 +137,7 @@ public class AbilityOrb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        int chNum = ((int)stats.ChoiceNumber.Value);
+        int chNum = ((int)ChoiceNumber.Value);
         for (int i = 0; i < chNum; i++)
         {
             PassiveAbility ab = GenerateAbility();

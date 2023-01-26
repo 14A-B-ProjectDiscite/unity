@@ -1,8 +1,7 @@
-using Kryz.CharacterStats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Variables/Stat")]
 public class Stat : ScriptableObject
 {
     // Editor value

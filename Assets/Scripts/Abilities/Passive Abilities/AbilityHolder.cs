@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Abilities/AbilityHolder")]
 public class AbilityHolder : RuntimeSet<PassiveAbility>
 {
     public override void Add(PassiveAbility ability)

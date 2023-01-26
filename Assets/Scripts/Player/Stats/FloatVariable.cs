@@ -1,9 +1,8 @@
-using Kryz.CharacterStats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Variables/float")]
 public class FloatVariable : ScriptableObject
 {
     // Editor value

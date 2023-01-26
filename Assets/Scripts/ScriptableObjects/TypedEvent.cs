@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Events/TypedEvent")]
 public class TypedEvent<T> : ScriptableObject
 {
     private readonly List<TypedEventListener<T>> eventListeners =

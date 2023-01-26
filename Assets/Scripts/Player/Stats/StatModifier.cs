@@ -1,5 +1,4 @@
-namespace Kryz.CharacterStats
-{
+
 	public enum StatModType
 	{
 		Flat = 100,
@@ -28,4 +27,4 @@ namespace Kryz.CharacterStats
 
 		public StatModifier(float value, StatModType type, object source) : this(value, type, (int)type, source) { }
 	}
-}
+

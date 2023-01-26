@@ -8,7 +8,8 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] AbilityState dashState = AbilityState.ready;
     [SerializeField] InputSO input;
     [SerializeField] DashAbility currentAbility;
-    [SerializeField] PlayerStates states;
+    [SerializeField] BoolVariable isGrounded;
+    [SerializeField] BoolVariable isDashing;
     public float dashRegenRate;
     public float maxDashCharges;
 
@@ -41,7 +42,7 @@ public class PlayerDash : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (states.isGrounded)
+        if (isGrounded.Value)
         {
             Dash();
         }
@@ -66,7 +67,7 @@ public class PlayerDash : MonoBehaviour
                     dashState = AbilityState.active;
                     activeTime = currentAbility.activeTime;
                     dashCharges -= currentAbility.Cost;
-                    states.isDashing = true;
+                    isDashing.Value = true;
                 }
                 break;
             case AbilityState.active:
@@ -78,7 +79,7 @@ public class PlayerDash : MonoBehaviour
                 {
                     dashState = AbilityState.cooldown;
                     cooldownTime = currentAbility.cooldownTime;
-                    states.isDashing = false;
+                    isDashing.Value = false;
                 }
                 break;
             case AbilityState.cooldown:
