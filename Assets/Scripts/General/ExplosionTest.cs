@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExplosionTest : MonoBehaviour
 {
-    [SerializeField] private State isGrounded;
+    [SerializeField] private BoolVariable isGrounded;
     [SerializeField] private float explosionRate;
     [SerializeField] private float force;
     [SerializeField] private float range;
@@ -43,7 +43,7 @@ public class ExplosionTest : MonoBehaviour
             PlayerMovement movementScript = col.GetComponent<PlayerMovement>();
             if (movementScript != null)
             {
-                isGrounded = false;
+                isGrounded.Value = false;
                 Rigidbody2D thisRigidbody = col.GetComponent<Rigidbody2D>();
                 if (thisRigidbody != null)
                 {

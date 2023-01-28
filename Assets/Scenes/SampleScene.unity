@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab951eb87a970341965cca011dbf69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  states: {fileID: 0}
+  isGrounded: {fileID: 0}
   explosionRate: 1
   force: 3
   range: 5
@@ -3323,7 +3323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GeneralOrb: 1
   ChoiceEvent: {fileID: 11400000, guid: 8cc17a14071004c48968b107f2d26d56, type: 2}
-  stats: {fileID: 11400000, guid: 7996022482e7b0f4ea44033742e48812, type: 2}
+  ChoiceNumber: {fileID: 11400000, guid: 2b02d62377993044381f9b5b0e941c6f, type: 2}
   defaultCommon: 100
   defaultUncommon: 80
   defaultRare: 10
@@ -3455,7 +3455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab951eb87a970341965cca011dbf69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  states: {fileID: 0}
+  isGrounded: {fileID: 0}
   explosionRate: 4
   force: 10
   range: 3
@@ -7461,7 +7461,9 @@ MonoBehaviour:
   Acceleration: {fileID: 11400000, guid: bf0ba9faff6587a41b4d877948994e90, type: 2}
   Friction: {fileID: 11400000, guid: c75630a875c212b45ba5ad7745565342, type: 2}
   Weight: {fileID: 11400000, guid: 7c1757a5ff994184ca52e7dec08abd5f, type: 2}
-  states: {fileID: 11400000, guid: e562b34e58a8f684097f81c1faec8272, type: 2}
+  isGrounded: {fileID: 11400000, guid: 40e21dbe534463d44acca0db928fe2c0, type: 2}
+  isDashing: {fileID: 11400000, guid: 58487324c3c8c1743908e29e3d300c89, type: 2}
+  isMoving: {fileID: 11400000, guid: ba19e46b59fd15040a5c0b756117b6a0, type: 2}
   runDeccelAmount: 0
   lerpAmount: 1
   doConserveMomentum: 0
@@ -7474,7 +7476,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348875503}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.595, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7569,7 +7571,8 @@ MonoBehaviour:
   dashState: 0
   input: {fileID: 11400000, guid: f8c204a75ab92074094805d275cc1ff3, type: 2}
   currentAbility: {fileID: 11400000, guid: 2fe045d93d767a74990aadfa6e25e585, type: 2}
-  states: {fileID: 11400000, guid: e562b34e58a8f684097f81c1faec8272, type: 2}
+  isGrounded: {fileID: 11400000, guid: 40e21dbe534463d44acca0db928fe2c0, type: 2}
+  isDashing: {fileID: 11400000, guid: 58487324c3c8c1743908e29e3d300c89, type: 2}
   dashRegenRate: 0
   maxDashCharges: 0
   dashCharges: 0
@@ -7604,7 +7607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab951eb87a970341965cca011dbf69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  states: {fileID: 0}
+  isGrounded: {fileID: 0}
   explosionRate: 0.5
   force: 3
   range: 7

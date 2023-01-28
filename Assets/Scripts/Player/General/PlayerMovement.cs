@@ -17,7 +17,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Stat Acceleration;
     [SerializeField] private Stat Friction;
     [SerializeField] private Stat Weight;
-    [SerializeField] private PlayerStates states;
+    [SerializeField] private BoolVariable isGrounded;
+    [SerializeField] private BoolVariable isDashing;
+    [SerializeField] private BoolVariable isMoving;
     [SerializeField] private float runDeccelAmount;
     [SerializeField] private float lerpAmount;
 
@@ -36,16 +38,16 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 		//Grounded if ungrounded time is up
-		if (Time.time > nextLandingTime && !states.isGrounded)
+		if (Time.time > nextLandingTime && !isGrounded.Value)
         {
-			states.isGrounded = true;
+			isGrounded.Value = true;
         }
 		//Turn green if not grounded
-        if (!states.isGrounded)
+        if (!isGrounded.Value)
         {
 			spriteRenderer.color = Color.green;
         }
-        else if (states.isDashing)
+        else if (isDashing.Value)
         {
             spriteRenderer.color = Color.blue;
         }
@@ -59,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
     {
-        if (!states.isDashing)
+        if (!isDashing.Value)
         {
             Run(lerpAmount);
         }
@@ -71,9 +73,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run(float lerpAmount)
 	{
-		if (!states.isGrounded)
+		if (!isGrounded.Value)
 			input.MovementDirection = Vector2.zero;
-		states.isMoving = (Mathf.Abs(input.MovementDirection.magnitude) > 0.01f);
+		isMoving.Value = (Mathf.Abs(input.MovementDirection.magnitude) > 0.01f);
 		//Calculate the direction we want to move in and our desired velocity
 		Vector2 targetSpeed = input.MovementDirection * (MaxSpeed.Statistic.Value + (Agility.Statistic.Value/100 * MaxSpeed.Statistic.Value));
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
@@ -126,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddForce(movement, ForceMode2D.Force);
 		
 		//If affected by explosion or moving, then do not apply friction
-        if (states.isGrounded && !states.isMoving)
+        if (isGrounded.Value)
         {
 			rb.velocity *= Friction.Statistic.Value;
         }
