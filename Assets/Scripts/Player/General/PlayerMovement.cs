@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 	//private float friction = 0.9f;
 	///*[HideInInspector] */public float acceleration;
 	
-    [SerializeField] public InputSO input;
+    [SerializeField] public Vector2Variable input;
     [SerializeField] private Stat Agility;
     [SerializeField] private Stat MaxSpeed;
     [SerializeField] private Stat Acceleration;
@@ -74,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
     private void Run(float lerpAmount)
 	{
 		if (!isGrounded.Value)
-			input.MovementDirection = Vector2.zero;
-		isMoving.Value = (Mathf.Abs(input.MovementDirection.magnitude) > 0.01f);
+			input.Value = Vector2.zero;
+		isMoving.Value = (Mathf.Abs(input.Value.magnitude) > 0.01f);
 		//Calculate the direction we want to move in and our desired velocity
-		Vector2 targetSpeed = input.MovementDirection * (MaxSpeed.Statistic.Value + (Agility.Statistic.Value/100 * MaxSpeed.Statistic.Value));
+		Vector2 targetSpeed = input.Value * (MaxSpeed.Statistic.Value + (Agility.Statistic.Value/100 * MaxSpeed.Statistic.Value));
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
 		targetSpeed = Vector2.Lerp(rb.velocity, targetSpeed, lerpAmount);
 

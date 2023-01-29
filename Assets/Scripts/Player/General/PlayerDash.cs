@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class PlayerDash : MonoBehaviour
 {
     [SerializeField] AbilityState dashState = AbilityState.ready;
-    [SerializeField] InputSO input;
+    [SerializeField] Vector2Variable input;
     [SerializeField] DashAbility currentAbility;
     [SerializeField] BoolVariable isGrounded;
     [SerializeField] BoolVariable isDashing;
@@ -63,7 +63,7 @@ public class PlayerDash : MonoBehaviour
             case AbilityState.ready:
                 if (Input.GetKey(KeyCode.Space) && dashCharges >= currentAbility.Cost)
                 {
-                    currentAbility.Dash(input.MovementDirection, rb);
+                    currentAbility.Dash(input.Value, rb);
                     dashState = AbilityState.active;
                     activeTime = currentAbility.activeTime;
                     dashCharges -= currentAbility.Cost;

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public class InputPC : MonoBehaviour
 {
-    public InputSO input;
+    public Vector2Variable input;
 
     private void Update()
     {
-        input.MovementDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        input.Value = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 }
