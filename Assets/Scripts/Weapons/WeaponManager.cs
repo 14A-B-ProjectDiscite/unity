@@ -9,6 +9,9 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]
     Weapon secondaryWeapon;
     int attackNumber = 0;
+    [SerializeField] GameEvent attacked;
+    [SerializeField] GameEvent primaryAttacked;
+    [SerializeField] GameEvent secondaryAttacked;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && primaryWeapon != null)

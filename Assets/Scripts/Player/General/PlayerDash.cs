@@ -10,11 +10,14 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] DashAbility currentAbility;
     [SerializeField] BoolVariable isGrounded;
     [SerializeField] BoolVariable isDashing;
+    [SerializeField] FloatVariable CurrentDashCharges;
+    [SerializeField] FloatVariable MaxDashCharges;
+    [SerializeField] GameEvent DashChargeChanged;
+    [SerializeField] GameEvent Dashed;
+    [SerializeField] GameEvent MaxDashChanged;
     public float dashRegenRate;
-    public float maxDashCharges;
 
     private float cooldownTime;
-    public float dashCharges;
     public float activeTime;
 
     private Rigidbody2D rb;
@@ -32,10 +35,11 @@ public class PlayerDash : MonoBehaviour
     void Update()
     {
         //Dash Regen
-        if (dashCharges < maxDashCharges)
+        if (CurrentDashCharges.Value < MaxDashCharges.Value)
         {
-            dashCharges += Time.deltaTime * dashRegenRate;
-            dashCharges = Mathf.Clamp(dashCharges, 0, maxDashCharges);
+            DashChargeChanged.Raise();
+            CurrentDashCharges.Value += Time.deltaTime * dashRegenRate;
+            CurrentDashCharges.Value = Mathf.Clamp(CurrentDashCharges.Value, 0, MaxDashCharges.Value);
             //dashSlider.value = dashCharges;
         }
     }
@@ -51,22 +55,23 @@ public class PlayerDash : MonoBehaviour
 
     private void DashChanged()
     {
-        maxDashCharges = currentAbility.maxDashCharges;
+        MaxDashChanged.Raise();
+        MaxDashCharges.Value = currentAbility.maxDashCharges;
         dashRegenRate = currentAbility.dashRegenRate;
     }
 
     void Dash()
     {
-        
         switch (dashState)
         {
             case AbilityState.ready:
-                if (Input.GetKey(KeyCode.Space) && dashCharges >= currentAbility.Cost)
+                if (Input.GetKey(KeyCode.Space) && CurrentDashCharges.Value >= currentAbility.Cost)
                 {
+                    Dashed.Raise();
                     currentAbility.Dash(input.Value, rb);
                     dashState = AbilityState.active;
                     activeTime = currentAbility.activeTime;
-                    dashCharges -= currentAbility.Cost;
+                    CurrentDashCharges.Value -= currentAbility.Cost;
                     isDashing.Value = true;
                 }
                 break;

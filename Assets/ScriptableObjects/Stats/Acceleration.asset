@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Acceleration
   m_EditorClassIdentifier: 
   baseValue: 10
+  hasMin: 0
+  min: 1
   stat:
+    hasMin: 0
+    min: 1
     BaseValue: 10
-    _value: 0
+    _value: 1000

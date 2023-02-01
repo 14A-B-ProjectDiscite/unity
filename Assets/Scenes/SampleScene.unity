@@ -2229,6 +2229,7 @@ GameObject:
   - component: {fileID: 650092595}
   - component: {fileID: 650092597}
   - component: {fileID: 650092596}
+  - component: {fileID: 650092598}
   m_Layer: 5
   m_Name: Dash Slider
   m_TagString: Untagged
@@ -2339,7 +2340,47 @@ MonoBehaviour:
   Event: {fileID: 11400000, guid: cccd255ef89e96f4d808c0fa8e701bf9, type: 2}
   Response:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 650092596}
+        m_TargetAssemblyTypeName: SliderManager, Assembly-CSharp
+        m_MethodName: SetValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &650092598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650092593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c63e725942a8c4e884f0e41af91fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 2ce19bf6aed7f6644a867793424ad9ab, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 650092596}
+        m_TargetAssemblyTypeName: SliderManager, Assembly-CSharp
+        m_MethodName: SetMaxValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &664749009
 GameObject:
   m_ObjectHideFlags: 0
@@ -7800,6 +7841,7 @@ MonoBehaviour:
   lerpAmount: 1
   doConserveMomentum: 0
   nextLandingTime: 0
+  AccelWithWeight: 0
 --- !u!4 &1348875507
 Transform:
   m_ObjectHideFlags: 0
@@ -7847,9 +7889,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a248cff793964040b40548b54eb81d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacked: {fileID: 11400000, guid: 512f75dd378fa1f40bc4c5c9f34ee735, type: 2}
-  primaryAttacked: {fileID: 11400000, guid: 10f4940180919e8479f400b63842f779, type: 2}
-  secondaryAttacked: {fileID: 11400000, guid: d931db2a3d8a5864e8ca7579987ce5e7, type: 2}
 --- !u!114 &1348875510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7864,6 +7903,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primaryWeapon: {fileID: 1101953872}
   secondaryWeapon: {fileID: 0}
+  attacked: {fileID: 0}
+  primaryAttacked: {fileID: 0}
+  secondaryAttacked: {fileID: 0}
 --- !u!114 &1348875512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7910,9 +7952,12 @@ MonoBehaviour:
   currentAbility: {fileID: 11400000, guid: 2fe045d93d767a74990aadfa6e25e585, type: 2}
   isGrounded: {fileID: 11400000, guid: 40e21dbe534463d44acca0db928fe2c0, type: 2}
   isDashing: {fileID: 11400000, guid: 58487324c3c8c1743908e29e3d300c89, type: 2}
+  CurrentDashCharges: {fileID: 11400000, guid: 26b916e4ceb585b40a6019b0b54c678e, type: 2}
+  MaxDashCharges: {fileID: 11400000, guid: 608665f6d5a1cc9498ff5c981a7f517a, type: 2}
+  DashChargeChanged: {fileID: 11400000, guid: cccd255ef89e96f4d808c0fa8e701bf9, type: 2}
+  Dashed: {fileID: 11400000, guid: 7d23fba65851e154b8d0ccbc85518a06, type: 2}
+  MaxDashChanged: {fileID: 11400000, guid: 2ce19bf6aed7f6644a867793424ad9ab, type: 2}
   dashRegenRate: 0
-  maxDashCharges: 0
-  dashCharges: 0
   activeTime: 0
 --- !u!1 &1381756678
 GameObject:

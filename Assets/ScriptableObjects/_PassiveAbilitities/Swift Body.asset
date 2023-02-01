@@ -23,6 +23,6 @@ MonoBehaviour:
   Flat:
   - 0
   PercentAdd:
-  - 20
+  - 0.2
   PercentMult:
   - 0

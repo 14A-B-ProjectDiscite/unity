@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 	[Serializable]
 	public class CharacterStat
 	{
+		public bool hasMin = false;
+		public float min = 0;
 		public float BaseValue;
 
 		protected bool isDirty = true;
@@ -18,6 +20,10 @@ using System.Collections.ObjectModel;
 					lastBaseValue = BaseValue;
 					_value = CalculateFinalValue();
 					isDirty = false;
+				}
+				if (hasMin)
+				{
+					return min;
 				}
 				return _value;
 			}
@@ -102,7 +108,7 @@ using System.Collections.ObjectModel;
 				}
 				else if (mod.Type == StatModType.PercentMult)
 				{
-					finalValue *= 1 + mod.Value;
+					finalValue *= mod.Value;
 				}
 			}
 

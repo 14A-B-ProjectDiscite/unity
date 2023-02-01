@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public float nextLandingTime;
 	private SpriteRenderer spriteRenderer;
+	public bool AccelWithWeight;
 
 	void Start()
     {
@@ -88,11 +89,21 @@ public class PlayerMovement : MonoBehaviour
         //or trying to decelerate (stop). As well as applying a multiplier if we're air borne.
         if (Mathf.Abs(targetSpeed.magnitude) > 0.01f)
         {
-			accelRate = Acceleration.Statistic.Value * Weight.Statistic.Value;
+			accelRate = Acceleration.Statistic.Value;
+			if (AccelWithWeight)
+			{
+				accelRate *= Weight.Statistic.Value;
+			}
+			else
+			{
+                accelRate *= 100;
+            }
+			
         }
         else
         {
 			accelRate = runDeccelAmount;
+			//accelRate = 0;
 
 		}
 		//accelRate = (Mathf.Abs(targetSpeed.magnitude) > 0.01f) ? runAccelAmount : runDeccelAmount;
@@ -128,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddForce(movement, ForceMode2D.Force);
 		
 		//If affected by explosion or moving, then do not apply friction
-        if (isGrounded.Value)
+        if (isGrounded.Value && Friction.Statistic.Value != 0)
         {
 			rb.velocity *= Friction.Statistic.Value;
         }
