@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddForce(movement, ForceMode2D.Force);
 		
 		//If affected by explosion or moving, then do not apply friction
-        if (isGrounded.Value && Friction.Statistic.Value != 0)
+        if (isGrounded.Value == true && Friction.Statistic.Value != 0)
         {
 			rb.velocity *= Friction.Statistic.Value;
         }

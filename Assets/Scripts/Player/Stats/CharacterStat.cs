@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using UnityEngine;
 
-
-	[Serializable]
+[Serializable]
 	public class CharacterStat
 	{
 		public bool hasMin = false;
@@ -23,7 +23,7 @@ using System.Collections.ObjectModel;
 				}
 				if (hasMin)
 				{
-					return min;
+					return Mathf.Max(min, _value);
 				}
 				return _value;
 			}

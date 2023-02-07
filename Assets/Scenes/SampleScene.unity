@@ -4350,6 +4350,7 @@ GameObject:
   - component: {fileID: 1101953871}
   - component: {fileID: 1101953872}
   - component: {fileID: 1101953873}
+  - component: {fileID: 1101953874}
   m_Layer: 0
   m_Name: ShortSword
   m_TagString: Untagged
@@ -4409,6 +4410,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!70 &1101953874
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101953870}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.20328839}
+  m_Size: {x: 0.04, y: 0.24867615}
+  m_Direction: 0
 --- !u!1 &1136173409
 GameObject:
   m_ObjectHideFlags: 0
@@ -7731,7 +7748,6 @@ GameObject:
   - component: {fileID: 1348875505}
   - component: {fileID: 1348875504}
   - component: {fileID: 1348875508}
-  - component: {fileID: 1348875509}
   - component: {fileID: 1348875510}
   - component: {fileID: 1348875512}
   - component: {fileID: 1348875514}
@@ -7841,7 +7857,7 @@ MonoBehaviour:
   lerpAmount: 1
   doConserveMomentum: 0
   nextLandingTime: 0
-  AccelWithWeight: 0
+  AccelWithWeight: 1
 --- !u!4 &1348875507
 Transform:
   m_ObjectHideFlags: 0
@@ -7877,18 +7893,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!114 &1348875509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348875503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a248cff793964040b40548b54eb81d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1348875510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7903,9 +7907,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primaryWeapon: {fileID: 1101953872}
   secondaryWeapon: {fileID: 0}
-  attacked: {fileID: 0}
-  primaryAttacked: {fileID: 0}
-  secondaryAttacked: {fileID: 0}
+  attacked: {fileID: 11400000, guid: 512f75dd378fa1f40bc4c5c9f34ee735, type: 2}
+  primaryAttacked: {fileID: 11400000, guid: 10f4940180919e8479f400b63842f779, type: 2}
+  secondaryAttacked: {fileID: 11400000, guid: d931db2a3d8a5864e8ca7579987ce5e7, type: 2}
 --- !u!114 &1348875512
 MonoBehaviour:
   m_ObjectHideFlags: 0

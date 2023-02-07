@@ -22,7 +22,9 @@ public class WeaponManager : MonoBehaviour
                 attackNumber = 1;
             }
             primaryWeapon.Attack(attackNumber);
-            
+            attacked.Raise();
+            primaryAttacked.Raise();
+
         }
         if (Input.GetKeyDown(KeyCode.Mouse1) && secondaryWeapon != null)
         {
@@ -32,6 +34,8 @@ public class WeaponManager : MonoBehaviour
                 attackNumber = 1;
             }
             secondaryWeapon.Attack(attackNumber);
+            attacked.Raise();
+            secondaryAttacked.Raise();
         }
     }
 

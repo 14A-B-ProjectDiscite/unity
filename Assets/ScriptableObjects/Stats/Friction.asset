@@ -16,7 +16,7 @@ MonoBehaviour:
   hasMin: 1
   min: 0
   stat:
-    hasMin: 0
-    min: 1
+    hasMin: 1
+    min: 0
     BaseValue: 0.9
     _value: 0.9
